@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 //przestrzeń nazw dla wejścia wyjścia między innymi zapisa na dysku
 using System.IO;
 
-namespace lab_1C
+namespace lab_1C.Model
 {
     static class Archiwizacja
     {
@@ -20,6 +20,9 @@ namespace lab_1C
                 stream.Close();
             }
         }
+
+        public static List<Pilkarz> ListaPilkarzy { get; } = new List<Pilkarz>();
+
         public static Pilkarz[] CzytajPilkarzyZPliku(string plik)
         {
             Pilkarz[] pilkarze = null;

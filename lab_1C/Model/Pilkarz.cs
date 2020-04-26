@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace lab_1C
+namespace lab_1C.Model
 {
-    internal class Pilkarz
+    class Pilkarz
     {
        
         #region Prop
@@ -74,6 +74,8 @@ namespace lab_1C
             Wiek = pilkarz2.Wiek;
             Waga = pilkarz2.Waga;
         }
+
+       
         #endregion
     }
 }

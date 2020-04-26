@@ -4,18 +4,42 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:lab_1C"
+        
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        
+        xmlns:vm="clr-namespace:lab_1C.ViewModel"
         mc:Ignorable="d"
-        Title="Piłkarze" Height="450" Width="800" Loaded="Window_Loaded" Closing="Window_Closing">
-    <Grid>
+        Title="Piłkarze" Height="450" Width="800" ResizeMode="NoResize">
+
+    <Window.Resources>
+        <vm:Calculating x:Key="calculating"/>
+        <!---DecimalToString-->
+    </Window.Resources>
+    <Grid DataContext="{StaticResource calculating}">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="2*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
         <StackPanel Grid.Column="0">
+            
             <Label Content="Imię"/>
-            <local:TextBoxWithErrorProvider x:Name="textBoxWEPImie" Margin="10" FontSize="15" />
+            <local:TextBoxWithErrorProvider x:Name="textBoxWEPImie" Margin="10" FontSize="15" Text="{Binding Path=Imie, Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="NumberChanged">
+                        <i:InvokeCommandAction Command="{Binding Clear}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </local:TextBoxWithErrorProvider>
+            
             <Label Content="Nazwisko"/>
-            <local:TextBoxWithErrorProvider x:Name="textBoxWEPNazwisko" Margin="10" FontSize="15"/>
+            <local:TextBoxWithErrorProvider x:Name="textBoxWEPNazwisko" Margin="10" FontSize="15" Text="{Binding Path=Nazwisko,Mode=TwoWay}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="NumberChanged">
+                        <i:InvokeCommandAction Command="{Binding Clear}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </local:TextBoxWithErrorProvider>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
@@ -30,9 +54,17 @@
             </Grid>
             <Slider x:Name="sliderWiek" Margin="5
                     " 
-                    Value="25" Minimum="15" Maximum="50" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"
-            />
+                    Value="{Binding Path=Wiek}" Minimum="15" Maximum="50" 
+                    TickFrequency="1" IsSnapToTickEnabled="True">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="NumberChanged">
+                        <i:InvokeCommandAction Command="{Binding Clear}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </Slider>
+            
 
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -48,24 +80,38 @@
             </Grid>
             <Slider x:Name="sliderWaga" Margin="5
                     " 
-                    Value="75" Minimum="50" Maximum="110" 
-                    TickFrequency="1" IsSnapToTickEnabled="True"
-            />
+                    Value="{Binding Path=Waga}" Minimum="50" Maximum="110" 
+                    TickFrequency="1" IsSnapToTickEnabled="True">
+
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="NumberChanged">
+                        <i:InvokeCommandAction Command="{Binding Clear}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+
+            </Slider>
+            
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="buttonDodaj" Grid.Column="0" Content="Dodaj" Margin="10" Click="buttonDodaj_Click"/>
+                <Button x:Name="buttonDodaj" Grid.Column="0" Content="Dodaj" Margin="10" Command="{Binding CalculateAdd}" />
+                <!--- 
                 <Button x:Name="buttonEdytuj" Grid.Column="1" Content="Edytuj" Margin="10" Click="buttonEdytuj_Click" IsEnabled="False"/>
-                <Button x:Name="buttonUsun" Grid.Column="2" Content="Usuń" Margin="10" Click="buttonUsun_Click" IsEnabled="False"/>
+                -->
+                
+                <Button x:Name="buttonUsun" Grid.Column="2" Content="Usuń" Margin="10" Command="{Binding CalculateRemov}"/>
+                
             </Grid>
         </StackPanel>
         <ListBox x:Name="listBoxPilkarze" 
                  Grid.Row="0" Grid.Column="1" 
                  Margin="10" FontSize="20" 
                  SelectionChanged="listBoxPilkarze_SelectionChanged"
+                 ItemsSource="{Binding Path=listapilkarzy}"
+                 SelectedItem="{Binding Path=selectedPilkarz}"
         />
         
     </Grid>
