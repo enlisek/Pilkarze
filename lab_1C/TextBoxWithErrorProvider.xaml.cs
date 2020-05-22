@@ -20,19 +20,35 @@ namespace lab_1C
     /// </summary>
     public partial class TextBoxWithErrorProvider : UserControl
     {
+        public static readonly DependencyProperty TextProperty =
+          DependencyProperty.Register(nameof(Text), typeof(string), typeof(TextBoxWithErrorProvider), new PropertyMetadata(""));
+
         #region Prop
         public string Text {
 
-            get {
-                return textBox.Text;
-            }
+            get
+            {
 
-            set {
-                textBox.Text = value;
+                if (GetValue(TextProperty) != null)
+                {
+                    SetError("");
+                    return (string)GetValue(TextProperty);
+                }
+                else
+                {
+                    SetError("wystąpił błąd");
+                    return null;
+                }
+
+            }
+            set
+            {
+                SetValue(TextProperty, value);
             }
 
         }
-                
+       
+
         public static Brush BrushForAll { get; set; } = Brushes.Red;
 
         public Brush TextBoxBorderBrush {
@@ -46,6 +62,7 @@ namespace lab_1C
 
        
         #endregion
+
 
 
         public TextBoxWithErrorProvider()

@@ -69,7 +69,7 @@
     <Compile Include="Model\Archiwizacja.cs" />
     <Compile Include="ViewModel\BaseClass\RelayCommand.cs" />
     <Compile Include="ViewModel\BaseClass\ViewModelBase.cs" />
-    <Compile Include="ViewModel\Calculating.cs" />
+    <Compile Include="ViewModel\ViewModelpilkarze.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
